@@ -1,7 +1,25 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  images: {
+    remotePatterns: [
+      {
+        hostname: 'picsum.photos',
+        protocol: 'https',
+        port: '',
+      },
+      {
+        hostname: 'canny-parakeet-73.convex.cloud',
+        protocol: 'https',
+        port: '',
+      },
+      {
+        hostname: 'avatar.iran.liara.run',
+        protocol: 'https',
+        port: '',
+      },
+    ],
+  },
+}
 
-export default nextConfig;
+export default nextConfig

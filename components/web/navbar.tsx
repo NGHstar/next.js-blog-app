@@ -1,21 +1,18 @@
-'use client';
+'use client'
 
-import Link from 'next/link';
-import { Button, buttonVariants } from '../ui/button';
-import { ThemeToggle } from './theme-toggle';
-import { useConvexAuth } from 'convex/react';
-import { LoaderCircle, LogOutIcon } from 'lucide-react';
-import { authClient } from '../../lib/auth-client';
-import toast from 'react-hot-toast';
-import { useRouter } from 'next/navigation';
-import { useTransition } from 'react';
+import Link from 'next/link'
+import { Button, buttonVariants } from '../ui/button'
+import { ThemeToggle } from './theme-toggle'
+import { useConvexAuth } from 'convex/react'
+import { LoaderCircle, LogOutIcon } from 'lucide-react'
+import { authClient } from '../../lib/auth-client'
+import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 
 function Navbar() {
   // ---
-  const { isAuthenticated, isLoading } = useConvexAuth();
-  const router = useRouter();
-
-  const [isPending, startTransition] = useTransition();
+  const { isAuthenticated, isLoading } = useConvexAuth()
+  const router = useRouter()
 
   return (
     <nav className="w-full py-5 flex items-center justify-between">
@@ -23,7 +20,7 @@ function Navbar() {
         <div>
           <Link href="/">
             <h1 className="text-4xl font-bold">
-              Next<span className="text-purple-500">Pro</span>
+              Next<span className="text-primary">Pro</span>
             </h1>
           </Link>
         </div>
@@ -46,18 +43,16 @@ function Navbar() {
         ) : isAuthenticated ? (
           <Button
             onClick={() =>
-              startTransition(async () => {
-                authClient.signOut({
-                  fetchOptions: {
-                    onSuccess: () => {
-                      toast.success('Logged out successfully');
-                      router.push('/');
-                    },
-                    onError: err => {
-                      toast.error(err.error.message);
-                    },
+              authClient.signOut({
+                fetchOptions: {
+                  onSuccess: () => {
+                    toast.success('Logged out successfully')
+                    router.push('/')
                   },
-                });
+                  onError: err => {
+                    toast.error(err.error.message)
+                  },
+                },
               })
             }
           >
@@ -78,7 +73,7 @@ function Navbar() {
         <ThemeToggle />
       </div>
     </nav>
-  );
+  )
 }
 
-export default Navbar;
+export default Navbar
