@@ -27,9 +27,7 @@ async function BlogPage() {
         <p className="text-xl text-muted-foreground">Insights, thoughts and trends from our team.</p>
       </div>
       {/* content */}
-      <Suspense fallback={<BlogSkeleton />}>
-        <LoadBlog />
-      </Suspense>
+      <LoadBlog />
     </div>
   )
 }
