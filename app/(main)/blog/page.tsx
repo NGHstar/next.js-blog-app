@@ -4,12 +4,9 @@ import Link from 'next/link'
 import { buttonVariants } from '../../../components/ui/button'
 import { fetchQuery } from 'convex/nextjs'
 import { api } from '../../../convex/_generated/api'
-import { Suspense } from 'react'
 import { Skeleton } from '../../../components/ui/skeleton'
 import { Metadata } from 'next'
-import { connection } from 'next/server'
-
-// export const dynamic = 'force-static'
+import { cacheLife, cacheTag } from 'next/cache'
 
 // * SEO
 export const metadata: Metadata = {
@@ -28,9 +25,7 @@ async function BlogPage() {
         <p className="text-xl text-muted-foreground">Insights, thoughts and trends from our team.</p>
       </div>
       {/* content */}
-      <Suspense fallback={<BlogSkeleton />}>
-        <LoadBlog />
-      </Suspense>
+      <LoadBlog />
     </div>
   )
 }
@@ -54,7 +49,10 @@ function BlogSkeleton() {
 
 async function LoadBlog() {
   // ---
-  await connection()
+  'use cache'
+  cacheLife('hours')
+  cacheTag('blog')
+
   const data = await fetchQuery(api.posts.getPosts)
 
   return (

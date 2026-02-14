@@ -9,11 +9,8 @@ import { Field, FieldError, FieldGroup, FieldLabel } from '../../../components/u
 import { Input } from '../../../components/ui/input'
 import { Button } from '../../../components/ui/button'
 import { LoaderCircle } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 import { Textarea } from '../../../components/ui/textarea'
 import z from 'zod'
-import { useMutation } from 'convex/react'
-import { api } from '../../../convex/_generated/api'
 import { createPostAction } from '../../actions'
 
 function CreatePage() {
