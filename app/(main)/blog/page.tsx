@@ -7,7 +7,7 @@ import { api } from '../../../convex/_generated/api'
 import { Suspense } from 'react'
 import { Skeleton } from '../../../components/ui/skeleton'
 import { Metadata } from 'next'
-import { connection } from 'next/server'
+import { cacheLife, cacheTag } from 'next/cache'
 // export const dynamic = 'force-static'
 
 // * SEO
@@ -53,7 +53,9 @@ function BlogSkeleton() {
 
 async function LoadBlog() {
   // ---
-  await connection()
+  'use cache'
+  cacheLife('hours')
+  cacheTag('blog')
 
   const data = await fetchQuery(api.posts.getPosts)
 
