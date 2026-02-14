@@ -6,7 +6,8 @@ import { fetchQuery } from 'convex/nextjs'
 import { api } from '../../../convex/_generated/api'
 import { Skeleton } from '../../../components/ui/skeleton'
 import { Metadata } from 'next'
-import { cacheLife, cacheTag } from 'next/cache'
+// TODO import { cacheLife, cacheTag } from 'next/cache'
+import { connection } from 'next/server'
 
 // * SEO
 export const metadata: Metadata = {
@@ -49,11 +50,13 @@ function BlogSkeleton() {
 
 async function LoadBlog() {
   // ---
-  'use cache'
-  cacheLife('hours')
-  cacheTag('blog')
+  // ToDo: uncomment this section and remove connection() after create some post and user on production
+  // 'use cache'
+  // cacheLife('hours')
+  // cacheTag('blog')
+  await connection()
 
-  const data = (await fetchQuery(api.posts.getPosts)) ?? null
+  const data = await fetchQuery(api.posts.getPosts)
 
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
