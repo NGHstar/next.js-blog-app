@@ -30,7 +30,7 @@ function CreatePage() {
   })
 
   function onSubmit({ title, content, image }: z.infer<typeof postSchema>) {
-    startTransition(async () => {
+    startTransition(() => {
       createPostAction({ title, content, image })
     })
   }

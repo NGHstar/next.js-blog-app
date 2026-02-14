@@ -9,11 +9,14 @@ import { fetchQuery, preloadQuery } from 'convex/nextjs'
 import { api } from '@/convex/_generated/api'
 import { Metadata } from 'next'
 import PostPresence from '@/components/web/PostPresence'
+import { getToken } from '@/lib/auth-server'
+import { redirect } from 'next/navigation'
 
 type PostId = {
   params: Promise<{ postId: Id<'posts'> }>
 }
 
+// * SEO
 export async function generateMetadata({ params }: PostId): Promise<Metadata> {
   const post = await fetchQuery(api.posts.getPostById, { postId: (await params).postId })
   if (!post) return { title: 'post not found' }
@@ -28,10 +31,17 @@ async function PostDetails({ params }: PostId) {
   // ---
   const { postId } = await params
 
-  const [post, preloadedComments] = await Promise.all([
-    await fetchQuery(api.posts.getPostById, { postId }),
-    await preloadQuery(api.comments.getCommentsByPostId, { postId }),
+  const token = await getToken()
+
+  const [post, preloadedComments, userId] = await Promise.all([
+    fetchQuery(api.posts.getPostById, { postId }),
+    preloadQuery(api.comments.getCommentsByPostId, { postId }),
+    fetchQuery(api.presence.getUserId, {}, { token }),
   ])
+
+  if (!userId) {
+    return redirect('/auth/login')
+  }
 
   if (!post)
     return (
@@ -61,11 +71,11 @@ async function PostDetails({ params }: PostId) {
       {/* content */}
       <div className="space-y-3 flex flex-col">
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight ">{post.title}</h1>
-        <div className="flex ">
+        <div className="flex items-center gap-4">
           <p className="text-sm text-muted-foreground">
             Posted on: {new Date(post._creationTime ?? '').toLocaleDateString('en-US')}
           </p>
-          <PostPresence roomId={post._id} userId={'asdf'} />
+          {userId && <PostPresence roomId={post._id!} userId={userId} />}
         </div>
       </div>
       <Separator className="my-6" />

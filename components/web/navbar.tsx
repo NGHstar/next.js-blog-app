@@ -8,6 +8,7 @@ import { LoaderCircle, LogOutIcon } from 'lucide-react'
 import { authClient } from '../../lib/auth-client'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
+import SearchInput from './SearchInput'
 
 function Navbar() {
   // ---
@@ -38,6 +39,9 @@ function Navbar() {
         </div>
       </div>
       <div className="flex items-center gap-2">
+        <div className="hidden md:block mr-2">
+          <SearchInput />
+        </div>
         {isLoading ? (
           <LoaderCircle className="animate-spin size-5" />
         ) : isAuthenticated ? (

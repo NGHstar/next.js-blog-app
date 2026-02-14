@@ -1,8 +1,8 @@
-import { v } from 'convex/values'
 import { mutation, query } from './_generated/server'
+import { components } from './_generated/api'
+import { ConvexError, v } from 'convex/values'
 import { Presence } from '@convex-dev/presence'
 import { authComponent } from './auth'
-import { components } from './_generated/api'
 
 export const presence = new Presence(components.presence)
 
@@ -14,6 +14,13 @@ export const heartbeat = mutation({
     interval: v.number(),
   },
   handler: async (ctx, { roomId, userId, sessionId, interval }) => {
+    // ---
+    const user = await authComponent.safeGetAuthUser(ctx)
+
+    if (!user) {
+      throw new ConvexError('unauthorized')
+    }
+
     return await presence.heartbeat(ctx, roomId, userId, sessionId, interval)
   },
 })
@@ -21,13 +28,22 @@ export const heartbeat = mutation({
 export const list = query({
   args: { roomToken: v.string() },
   handler: async (ctx, { roomToken }) => {
-    return await presence.list(ctx, roomToken)
+    // Avoid adding per-user reads so all subscriptions can share same cache.
+    const entries = await presence.list(ctx, roomToken)
+    return await Promise.all(
+      entries.map(async entry => {
+        const user = await authComponent.getAnyUserById(ctx, entry.userId)
+        if (!user) return entry
+        return { ...entry, name: user.name }
+      })
+    )
   },
 })
 
 export const disconnect = mutation({
   args: { sessionToken: v.string() },
   handler: async (ctx, { sessionToken }) => {
+    // Can't check auth here because it's called over http from sendBeacon.
     return await presence.disconnect(ctx, sessionToken)
   },
 })
@@ -36,5 +52,6 @@ export const getUserId = query({
   args: {},
   handler: async ctx => {
     const user = await authComponent.safeGetAuthUser(ctx)
+    return user?._id
   },
 })

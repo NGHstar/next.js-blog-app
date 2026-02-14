@@ -2,24 +2,25 @@
 
 import { api } from '@/convex/_generated/api'
 import { Id } from '@/convex/_generated/dataModel'
-import usePresence from '@convex-dev/presence/react'
+
 import FacePile from '@convex-dev/presence/facepile'
+import usePresence from '@convex-dev/presence/react'
 
 type iAppProps = {
-  roomId: Id<'posts'> | undefined
+  roomId: Id<'posts'>
   userId: string
 }
 
 function PostPresence({ roomId, userId }: iAppProps) {
   // ---
-  const presenceState = usePresence(api.presence, roomId ?? '', userId)
+  const presenceState = usePresence(api.presence, roomId, userId)
 
   if (!presenceState || presenceState.length === 0) return null
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center  gap-2 translate-y-0.5">
       <p className="text-xs uppercase tracking-wide text-muted-foreground">Viewing now</p>
-      <div>
+      <div className="text-black">
         <FacePile presenceState={presenceState ?? []} />
       </div>
     </div>
