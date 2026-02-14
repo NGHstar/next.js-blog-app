@@ -8,6 +8,7 @@ import { Skeleton } from '../../../components/ui/skeleton'
 import { Metadata } from 'next'
 // TODO import { cacheLife, cacheTag } from 'next/cache'
 import { connection } from 'next/server'
+import { Suspense } from 'react'
 
 // * SEO
 export const metadata: Metadata = {
@@ -26,7 +27,9 @@ async function BlogPage() {
         <p className="text-xl text-muted-foreground">Insights, thoughts and trends from our team.</p>
       </div>
       {/* content */}
-      <LoadBlog />
+      <Suspense fallback={<BlogPage />}>
+        <LoadBlog />
+      </Suspense>
     </div>
   )
 }
