@@ -53,7 +53,7 @@ async function LoadBlog() {
   cacheLife('hours')
   cacheTag('blog')
 
-  const data = await fetchQuery(api.posts.getPosts)
+  const data = (await fetchQuery(api.posts.getPosts)) ?? null
 
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
