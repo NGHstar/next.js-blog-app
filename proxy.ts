@@ -1,7 +1,7 @@
 import { getSession } from 'better-auth/api'
 import { NextResponse } from 'next/server'
 
-export async function middleware(req: Request) {
+export function proxy(req: Request) {
   const session = getSession()
 
   if (!session) {
