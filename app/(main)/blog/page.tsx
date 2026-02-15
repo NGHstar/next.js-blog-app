@@ -6,8 +6,7 @@ import { fetchQuery } from 'convex/nextjs'
 import { api } from '../../../convex/_generated/api'
 import { Skeleton } from '../../../components/ui/skeleton'
 import { Metadata } from 'next'
-// TODO import { cacheLife, cacheTag } from 'next/cache'
-import { connection } from 'next/server'
+import { cacheLife, cacheTag } from 'next/cache'
 import { Suspense } from 'react'
 
 // * SEO
@@ -27,9 +26,7 @@ async function BlogPage() {
         <p className="text-xl text-muted-foreground">Insights, thoughts and trends from our team.</p>
       </div>
       {/* content */}
-      <Suspense fallback={<BlogSkeleton />}>
-        <LoadBlog />
-      </Suspense>
+      <LoadBlog />
     </div>
   )
 }
@@ -53,11 +50,9 @@ function BlogSkeleton() {
 
 async function LoadBlog() {
   // ---
-  // ToDo: uncomment this section and remove connection() after create some post and user on production
-  // 'use cache'
-  // cacheLife('hours')
-  // cacheTag('blog')
-  await connection()
+  'use cache'
+  cacheLife('hours')
+  cacheTag('blog')
 
   const data = await fetchQuery(api.posts.getPosts)
 
