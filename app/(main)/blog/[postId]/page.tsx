@@ -40,7 +40,7 @@ async function PostDetails({ params }: PostId) {
   ])
 
   if (!userId) {
-    return redirect('/auth/login')
+    return redirect(`/auth/login?callbackUrl=/blog/${postId}`)
   }
 
   if (!post)

@@ -7,7 +7,6 @@ import { api } from '../../../convex/_generated/api'
 import { Skeleton } from '../../../components/ui/skeleton'
 import { Metadata } from 'next'
 import { cacheLife, cacheTag } from 'next/cache'
-import { Suspense } from 'react'
 
 // * SEO
 export const metadata: Metadata = {
@@ -75,7 +74,7 @@ async function LoadBlog() {
             <p className="text-muted-foreground line-clamp-2">{post.content}</p>
           </CardContent>
           <CardFooter>
-            <Link className={buttonVariants({ className: 'w-full' })} href={`/blog/${post._id}`}>
+            <Link className={buttonVariants({ className: 'w-full' })} href={`blog/${post._id}`}>
               Read more
             </Link>
           </CardFooter>
