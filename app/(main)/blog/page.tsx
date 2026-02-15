@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { buttonVariants } from '../../../components/ui/button'
 import { fetchQuery } from 'convex/nextjs'
 import { api } from '../../../convex/_generated/api'
-import { Skeleton } from '../../../components/ui/skeleton'
 import { Metadata } from 'next'
 import { cacheLife, cacheTag } from 'next/cache'
 
@@ -30,22 +29,22 @@ async function BlogPage() {
   )
 }
 
-function BlogSkeleton() {
-  return (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {[...Array(3)].map((_, i) => (
-        <div key={i} className="flex flex-col space-y-3">
-          <Skeleton className="h-48 w-full rounded-xl" />
-          <div className="space-y-2 flex flex-col">
-            <Skeleton className="h-6 w-3/4" />
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-2/3" />
-          </div>
-        </div>
-      ))}
-    </div>
-  )
-}
+// function BlogSkeleton() {
+//   return (
+//     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+//       {[...Array(3)].map((_, i) => (
+//         <div key={i} className="flex flex-col space-y-3">
+//           <Skeleton className="h-48 w-full rounded-xl" />
+//           <div className="space-y-2 flex flex-col">
+//             <Skeleton className="h-6 w-3/4" />
+//             <Skeleton className="h-4 w-full" />
+//             <Skeleton className="h-4 w-2/3" />
+//           </div>
+//         </div>
+//       ))}
+//     </div>
+//   )
+// }
 
 async function LoadBlog() {
   // ---

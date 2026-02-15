@@ -12,15 +12,11 @@ import z from 'zod'
 import { useTransition } from 'react'
 import { LoaderCircle } from 'lucide-react'
 import toast from 'react-hot-toast'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 function Login() {
   // ---
   const router = useRouter()
-
-  const searchParams = useSearchParams()
-  const callbackUrl = searchParams.get('callbackUrl') || '/'
-
   const [isPending, startTransition] = useTransition()
 
   const form = useForm({
@@ -40,7 +36,7 @@ function Login() {
           fetchOptions: {
             onSuccess: () => {
               toast.success('Welcome')
-              router.replace(callbackUrl)
+              router.replace('/')
               router.refresh()
             },
             onError: err => {
