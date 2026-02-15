@@ -15,6 +15,11 @@ const nextConfig: NextConfig = {
         port: '',
       },
       {
+        hostname: 'accurate-jay-279.convex.cloud',
+        protocol: 'https',
+        port: '',
+      },
+      {
         hostname: 'avatar.iran.liara.run',
         protocol: 'https',
         port: '',
