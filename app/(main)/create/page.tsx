@@ -12,9 +12,17 @@ import { LoaderCircle } from 'lucide-react'
 import { Textarea } from '../../../components/ui/textarea'
 import z from 'zod'
 import { createPostAction } from '../../actions'
+import { getSession } from 'better-auth/api'
+import { redirect } from 'next/navigation'
 
 function CreatePage() {
   // ---
+  const session = getSession()
+
+  if (!session) {
+    redirect('/auth/login')
+  }
+
   const [isPending, startTransition] = useTransition()
 
   const form = useForm({

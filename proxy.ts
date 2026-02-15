@@ -1,16 +1,19 @@
-import { getSession } from 'better-auth/api'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
+import { getSessionCookie } from 'better-auth/cookies'
 
-export function proxy(req: Request) {
-  const session = getSession()
+export async function proxy(request: NextRequest) {
+  const sessionCookie = getSessionCookie(request)
 
-  if (!session) {
-    return NextResponse.redirect(new URL('/auth/login', req.url))
+  // THIS IS NOT SECURE!
+  // This is the recommended approach to optimistically redirect users
+  // We recommend handling auth checks in each page/route
+  if (!sessionCookie) {
+    return NextResponse.redirect(new URL('/auth/login', request.url))
   }
 
   return NextResponse.next()
 }
 
 export const config = {
-  matcher: ['/create', '/bog/:postId*'],
+  matcher: '/create', // Specify the routes the middleware applies to
 }
