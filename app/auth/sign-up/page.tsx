@@ -1,24 +1,24 @@
-'use client';
+'use client'
 
-import { Controller, useForm } from 'react-hook-form';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../components/ui/card';
-import { Field, FieldError, FieldGroup, FieldLabel } from '../../../components/ui/field';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { signUpSchema } from '../../schemas/auth';
-import { Input } from '../../../components/ui/input';
-import { Button } from '../../../components/ui/button';
-import { authClient } from '../../../lib/auth-client';
-import z from 'zod';
-import { LoaderCircle } from 'lucide-react';
-import toast from 'react-hot-toast';
-import { useRouter } from 'next/navigation';
-import { useTransition } from 'react';
+import { Controller, useForm } from 'react-hook-form'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../components/ui/card'
+import { Field, FieldError, FieldGroup, FieldLabel } from '../../../components/ui/field'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { signUpSchema } from '../../schemas/auth'
+import { Input } from '../../../components/ui/input'
+import { Button } from '../../../components/ui/button'
+import { authClient } from '../../../lib/auth-client'
+import z from 'zod'
+import { LoaderCircle } from 'lucide-react'
+import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
+import { useTransition } from 'react'
 
 function Signup() {
   // ---
-  const router = useRouter();
+  const router = useRouter()
 
-  const [isPending, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition()
 
   const form = useForm({
     resolver: zodResolver(signUpSchema),
@@ -27,7 +27,7 @@ function Signup() {
       name: '',
       password: '',
     },
-  });
+  })
 
   function onSubmit({ email, name, password }: z.infer<typeof signUpSchema>) {
     startTransition(async () => {
@@ -38,26 +38,26 @@ function Signup() {
           password,
           fetchOptions: {
             onSuccess: () => {
-              toast.success('Account created successfully');
-              router.push('/');
+              toast.success('Account created successfully')
+              router.push('/')
             },
             onError: err => {
-              toast.error(err.error.message);
+              toast.error(err.error.message)
             },
           },
-        });
+        })
       } catch (error) {
-        toast.error('Unexpected error, Check your internet connection');
-        console.error('Signup error:', error);
+        toast.error('Unexpected error, Check your internet connection')
+        console.error('Signup error:', error)
       }
-    });
+    })
   }
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Sign-up</CardTitle>
-        <CardDescription>Create an account to get started</CardDescription>
+        <CardTitle className="text-xl font-bold">Become an Akatsuki</CardTitle>
+        <CardDescription>Unite with the strongest shinobi to shape the world</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -112,7 +112,7 @@ function Signup() {
         </form>
       </CardContent>
     </Card>
-  );
+  )
 }
 
-export default Signup;
+export default Signup

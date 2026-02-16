@@ -4,12 +4,15 @@ import Link from 'next/link'
 import { Button, buttonVariants } from '../ui/button'
 import { ThemeToggle } from './theme-toggle'
 import { useConvexAuth } from 'convex/react'
-import { Loader2, LogOutIcon } from 'lucide-react'
+import { Home, Library, Loader2, LogOutIcon, Menu, PencilLine } from 'lucide-react'
 import { authClient } from '../../lib/auth-client'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import SearchInput from './SearchInput'
 import { useState } from 'react'
+import Image from 'next/image'
+import AccountButton from './AccountButton'
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '../ui/sheet'
 
 function Navbar() {
   // ---
@@ -33,16 +36,59 @@ function Navbar() {
 
   return (
     <nav className="w-full py-5 flex items-center justify-between">
-      <div className="flex items-end gap-8">
-        <div>
+      <div className="flex items-end gap-4">
+        <div className="min-w-16">
           <Link href="/">
-            <h1 className="text-4xl font-bold">
-              Next<span className="text-primary">Pro</span>
-            </h1>
+            <Image src="/akatsuki_logo.svg" alt="akatsuki logo" width={60} height={20} priority />
           </Link>
         </div>
+        <div className="md:hidden">
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Menu className="size-6" />
+              </Button>
+            </SheetTrigger>
 
-        <div className="flex items-center gap-2">
+            <SheetTitle></SheetTitle>
+
+            <SheetContent
+              side="left"
+              className="w-54 items-baseline pt-6 pl-2 bg-background/60 backdrop-blur-2xl border-0"
+            >
+              <div className="flex flex-col gap-4 mt-8">
+                <Link href="/" className={buttonVariants({ variant: 'ghost' })}>
+                  <Home className="size-5 -translate-y-0.5" />
+                  Home
+                </Link>
+
+                <Link
+                  href="/blog"
+                  className={buttonVariants({ variant: 'ghost', className: '-translate-x-1' })}
+                >
+                  <Library className="size-5 -translate-y-0.5" />
+                  Blog
+                </Link>
+
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    if (isAuthenticated) {
+                      router.push('/create')
+                    } else {
+                      router.push('/auth/login')
+                    }
+                  }}
+                >
+                  <PencilLine className="size-5 -translate-y-0.5" />
+                  Create
+                </Button>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
+
+        <div className="hidden md:flex items-center gap-2">
           <Link className={buttonVariants({ variant: 'ghost' })} href="/">
             Home
           </Link>
@@ -77,20 +123,10 @@ function Navbar() {
         ) : isAuthenticated ? (
           <Button onClick={handleLogout} className="cursor-pointer">
             <LogOutIcon />
-            Logout
+            <p className="hidden sm:block">Logout</p>
           </Button>
         ) : (
-          <>
-            <Link className={buttonVariants({ className: 'cursor-pointer' })} href="/auth/sign-up">
-              Sign up
-            </Link>
-            <Link
-              className={buttonVariants({ variant: 'outline', className: 'cursor-pointer' })}
-              href="/auth/login"
-            >
-              Login
-            </Link>
-          </>
+          <AccountButton />
         )}
 
         <ThemeToggle />

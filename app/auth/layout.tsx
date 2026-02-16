@@ -1,7 +1,8 @@
-import { ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
-import { buttonVariants } from '../../components/ui/button';
-import { ReactNode } from 'react';
+import { ArrowLeft } from 'lucide-react'
+import Link from 'next/link'
+import { buttonVariants } from '../../components/ui/button'
+import { ReactNode } from 'react'
+import Image from 'next/image'
 
 function AuthLayout({ children }: { children: ReactNode }) {
   return (
@@ -13,10 +14,22 @@ function AuthLayout({ children }: { children: ReactNode }) {
             Go Back
           </Link>
         </div>
-        <div className="w-full max-w-md mx-auto">{children}</div>
+        <div className="w-full max-w-md mx-auto">
+          <Link href="/">
+            <Image
+              className="mx-auto mb-6"
+              src="/akatsuki_logo.svg"
+              alt="akatsuki logo"
+              width={100}
+              height={40}
+              priority
+            />
+          </Link>
+          {children}
+        </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default AuthLayout;
+export default AuthLayout

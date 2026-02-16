@@ -54,8 +54,8 @@ function Login() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Login</CardTitle>
-        <CardDescription>Create an account to get started</CardDescription>
+        <CardTitle className="text-xl font-bold">Return to the Shadows</CardTitle>
+        <CardDescription>Reclaim your mission, continue the legacy.</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={form.handleSubmit(onSubmit)}>
