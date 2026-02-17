@@ -35,7 +35,7 @@ export default function RootLayout({
               <Toaster />
               <ConvexClientProvider>{children}</ConvexClientProvider>
             </main>
-            <section className="w-full mt-12 h-12 dark:bg-card bg-[#383c5f0c] flex items-center justify-center text-muted-foreground">
+            <section className="w-full mt-24 h-12 dark:bg-card bg-[#383c5f0c] flex items-center justify-center text-muted-foreground">
               Akatsuki organization - Copyright 2026
             </section>
           </ThemeProvider>

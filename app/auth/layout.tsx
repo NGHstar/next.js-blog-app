@@ -7,7 +7,7 @@ import Image from 'next/image'
 function AuthLayout({ children }: { children: ReactNode }) {
   return (
     <div>
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen justify-center pt-28">
         <div className="absolute top-5 left-5">
           <Link href="/" className={buttonVariants({ variant: 'secondary' })}>
             <ArrowLeft className="size-4" />
