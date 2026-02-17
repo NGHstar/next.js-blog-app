@@ -2,8 +2,6 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
-import { Button } from '../ui/button'
-import { Info } from 'lucide-react'
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip'
 
 type Senpai = {

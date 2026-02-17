@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../components/ui/card'
+import { Card, CardContent } from '../../../components/ui/card'
 import { useTransition } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -36,13 +36,9 @@ function CreatePage() {
     <div className="py-12">
       <div className="text-center mb-12">
         <h1 className="page-title">Create Post</h1>
-        <p className="text-xl text-muted-foreground">Share your thoughts with the big world</p>
+        <p className="text-xl text-muted-foreground">Share your thoughts with the world</p>
       </div>
       <Card className="mx-auto max-w-xl w-full">
-        <CardHeader>
-          <CardTitle>Create Blog Article</CardTitle>
-          <CardDescription>create a new blog article</CardDescription>
-        </CardHeader>
         <CardContent>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <FieldGroup className="gap-y-6">
@@ -52,7 +48,7 @@ function CreatePage() {
                 render={({ field, fieldState }) => (
                   <Field>
                     <FieldLabel>Title</FieldLabel>
-                    <Input aria-invalid={fieldState.invalid} placeholder="Your article title" {...field} />
+                    <Input aria-invalid={fieldState.invalid} {...field} />
                     {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                   </Field>
                 )}
@@ -63,7 +59,7 @@ function CreatePage() {
                 render={({ field, fieldState }) => (
                   <Field>
                     <FieldLabel>Content</FieldLabel>
-                    <Textarea className="h-24" aria-invalid={fieldState.invalid} placeholder="" {...field} />
+                    <Textarea className="h-32" aria-invalid={fieldState.invalid} placeholder="" {...field} />
                     {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                   </Field>
                 )}
@@ -76,6 +72,7 @@ function CreatePage() {
                   <Field>
                     <FieldLabel>Image</FieldLabel>
                     <Input
+                      className="cursor-pointer hover:ring-2 ring-ring"
                       type="file"
                       accept="image/*"
                       onChange={e => {
