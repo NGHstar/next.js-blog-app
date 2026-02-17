@@ -5,6 +5,7 @@ import { ThemeProvider } from '../components/theme-provider'
 import { ConvexClientProvider } from '../components/web/ConvexClientProvider'
 import { Toaster } from 'react-hot-toast'
 import { TooltipProvider } from '@/components/ui/tooltip'
+import HolyLoader from 'holy-loader'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -33,6 +34,7 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
             <main className="max-w-7xl mx-auto w-full px-4 md:px-6 lg:px-8">
               <Toaster />
+              <HolyLoader />
               <ConvexClientProvider>{children}</ConvexClientProvider>
             </main>
             <section className="w-full mt-24 h-12 dark:bg-card bg-[#383c5f0c] flex items-center justify-center text-muted-foreground">
