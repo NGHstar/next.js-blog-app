@@ -29,7 +29,7 @@ function MobileNav({ isAuthenticated }: props) {
 
       <SheetContent
         side="left"
-        className="w-54 items-baseline pt-6 pl-2 bg-background/60 backdrop-blur-2xl border-0"
+        className="w-54 items-baseline pt-6 pl-2 dark:bg-background/60 bg-background backdrop-blur-2xl border-0"
       >
         <div className="flex flex-col md:flex-row gap-4 mt-8">
           <Link

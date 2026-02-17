@@ -56,6 +56,8 @@ function SelectSenpai() {
 
   const [selectedSenpai, setSelectedSenpai] = useState('pain')
 
+  const [open, setOpen] = useState(false)
+
   function play(sound: string) {
     new Audio(sound).play()
   }
@@ -65,8 +67,8 @@ function SelectSenpai() {
       <div className="flex gap-3">
         <p className="mb-6 font-bold">Your Senpai</p>
 
-        <Tooltip>
-          <TooltipTrigger asChild>
+        <Tooltip open={open} onOpenChange={setOpen}>
+          <TooltipTrigger onClick={() => setOpen(true)} asChild>
             <span className="rounded-full bg-background flex items-center justify-center size-8 cursor-pointer -translate-y-1 font-bold text-xl">
               !
             </span>

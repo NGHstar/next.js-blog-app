@@ -22,7 +22,12 @@ function AccountButton({ loggedIn, onLogout }: props) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => router.push('/auth/sign-up')}>
+        <DropdownMenuItem
+          onClick={() => {
+            if (loggedIn) router.push('/create')
+            else router.push('/auth/sign-up')
+          }}
+        >
           {loggedIn ? <PencilLine /> : <UserPlus />}
           {loggedIn ? 'Create' : 'Sign up'}
         </DropdownMenuItem>
