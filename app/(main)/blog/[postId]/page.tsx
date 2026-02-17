@@ -51,7 +51,7 @@ async function PostDetails({ params }: PostId) {
     )
 
   return (
-    <div className="max-w-3xl mx-auto py-16 px-4 animate-in fade-in duration-500 relative">
+    <div className="max-w-3xl mx-auto py-16 animate-in fade-in duration-500 relative">
       {/* back button */}
       <Link className={buttonVariants({ variant: 'outline' })} href="/blog">
         <ArrowLeft />

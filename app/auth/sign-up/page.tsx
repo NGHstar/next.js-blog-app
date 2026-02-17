@@ -13,6 +13,7 @@ import { LoaderCircle } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import { useTransition } from 'react'
+import SelectSenpai from '@/components/web/SelectSenpai'
 
 function Signup() {
   // ---
@@ -105,6 +106,7 @@ function Signup() {
                 </Field>
               )}
             />
+            <SelectSenpai />
             <Button disabled={isPending} className="cursor-pointer">
               {isPending ? <LoaderCircle className="animate-spin size-5" /> : 'Sign up'}
             </Button>

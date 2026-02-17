@@ -4,6 +4,7 @@ import './globals.css'
 import { ThemeProvider } from '../components/theme-provider'
 import { ConvexClientProvider } from '../components/web/ConvexClientProvider'
 import { Toaster } from 'react-hot-toast'
+import { TooltipProvider } from '@/components/ui/tooltip'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -28,15 +29,17 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <main className="max-w-7xl mx-auto w-full px-4 md:px-6 lg:px-8">
-            <Toaster />
-            <ConvexClientProvider>{children}</ConvexClientProvider>
-          </main>
-          <section className="w-full mt-12 h-12 dark:bg-card bg-[#383c5f0c] flex items-center justify-center text-muted-foreground">
-            Akatsuki organization - Copyright 2026
-          </section>
-        </ThemeProvider>
+        <TooltipProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            <main className="max-w-7xl mx-auto w-full px-4 md:px-6 lg:px-8">
+              <Toaster />
+              <ConvexClientProvider>{children}</ConvexClientProvider>
+            </main>
+            <section className="w-full mt-12 h-12 dark:bg-card bg-[#383c5f0c] flex items-center justify-center text-muted-foreground">
+              Akatsuki organization - Copyright 2026
+            </section>
+          </ThemeProvider>
+        </TooltipProvider>
       </body>
     </html>
   )

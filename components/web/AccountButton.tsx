@@ -1,29 +1,42 @@
 'use client'
 
-import { LogIn, User, UserPlus } from 'lucide-react'
+import { LogIn, LogOut, PencilLine, User, UserPlus } from 'lucide-react'
 import { Button } from '../ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu'
 import { useRouter } from 'next/navigation'
 
-function AccountButton() {
+type props = {
+  loggedIn: boolean
+  onLogout?: () => void
+}
+
+function AccountButton({ loggedIn, onLogout }: props) {
   //---
   const router = useRouter()
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
+        <Button variant={loggedIn ? 'default' : 'outline'} size="icon">
           <User />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => router.push('/auth/sign-up')}>
-          <UserPlus />
-          Sign up
+          {loggedIn ? <PencilLine /> : <UserPlus />}
+          {loggedIn ? 'Create' : 'Sign up'}
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => router.push('/auth/login')}>
-          <LogIn />
-          Login
+        <DropdownMenuItem
+          onClick={() => {
+            if (loggedIn && onLogout) {
+              onLogout()
+            } else {
+              router.push('/auth/login')
+            }
+          }}
+        >
+          {loggedIn ? <LogOut /> : <LogIn />}
+          {loggedIn ? 'Logout' : 'Login'}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
